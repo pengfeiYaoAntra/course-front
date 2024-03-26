@@ -1,0 +1,78 @@
+@if (viewMode){
+    @if (currentCourse.id){
+    <h4>Course</h4>
+    <div>
+      <label><strong>Title:</strong></label> {{ currentCourse.title }}
+    </div>
+    <div>
+      <label><strong>Description:</strong></label>
+      {{ currentCourse.description }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentCourse.published ? "Published" : "Pending" }}
+    </div>
+  
+    <a class="badge bg-warning" routerLink="/courses/{{ currentCourse.id }}">
+      Edit
+    </a>
+    } @else {<p>Please click on a courses...</p>}
+  } @else {
+    @if (currentCourse.id) {
+    <div class="edit-form">
+      <h4>course</h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentCourse.title"
+            name="title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentCourse.description"
+            name="description"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentCourse.published ? "Published" : "Pending" }}
+        </div>
+      </form>
+  
+      @if (currentCourse.published) {
+      <button class="badge bg-primary me-2"
+        (click)="updatePublished(false)" >
+        UnPublish
+      </button>
+      } @else {
+      <button class="badge bg-primary me-2" (click)="updatePublished(true)">
+        Publish
+      </button>
+      }
+  
+      <button class="badge bg-danger me-2" (click)="deleteCourse()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge bg-success me-2"
+        (click)="updateCourse()">
+        Update
+      </button>
+      
+      <button class="badge bg-dark me-2" routerLink="/courses" >Back to Course list </button>
+      <p>{{ message }}</p>
+    </div>
+    } @else {<p>Cannot access this course...</p>}
+  }

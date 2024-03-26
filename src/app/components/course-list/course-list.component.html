@@ -1,0 +1,58 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <!-- add input text here -->
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="title"
+        />
+        <div class="input-group-append">
+          <!-- add search button here -->
+
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchTitle()"
+          >
+            Search
+          </button>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="retrieveCourse()"
+          >
+            Search All
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Courses List</h4>
+      <ul class="list-group">
+        <!-- add for loop -->
+        @for (course of courses; track course.id; let i = $index) {
+        <li
+          class="list-group-item"
+          [class.active]="i == currentIndex"
+          (click)="setActiveCourse(course, i)"
+        >
+          {{ course.title }}
+        </li>
+        }
+      </ul>
+        <!-- add remove all button -->
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllCourse()">
+        Remove All
+      </button>
+    </div>
+    <div class="col-md-6">
+      <!-- add course detial component here -->
+      <app-course-details
+        [viewMode]="true"
+        [currentCourse]="currentCourse"
+      ></app-course-details>
+    </div>
+  </div>
